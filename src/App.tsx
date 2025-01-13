@@ -2,9 +2,10 @@ import { useState } from 'react'
 import './App.css'
 import Main from './components/Main'
 import Sidebar from './components/Sidebar'
+import { v4 as uuidv4 } from 'uuid'
 
 export interface Note {
-  id: number;
+  id: string;
   title: string;
   content: string;
   modDate: number;
@@ -16,7 +17,7 @@ function App() {
   const onAddNote = () => {
     console.log('note added');
     const newNote = {
-      id: 1,
+      id: uuidv4(),
       title: 'タイトル',
       content: 'ノートの内容です',
       modDate: Date.now(),
@@ -27,7 +28,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Sidebar onAddNote={onAddNote} />
+      <Sidebar onAddNote={onAddNote} notes={notes} />
       <Main />
     </div>
   )
