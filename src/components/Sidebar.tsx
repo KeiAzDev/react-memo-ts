@@ -4,9 +4,10 @@ import { Note } from "../App";
 interface SidebarProps {
   onAddNote: () => void;
   notes: Note[];
+  onDeleteNote: (id: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onAddNote, notes }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onAddNote, notes, onDeleteNote }) => {
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -18,7 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onAddNote, notes }) => {
           <div className="app-sidebar-note" key={note.id}>
             <div className="sidebar-note-title">
               <strong>{note.title}</strong>
-              <button>削除</button>
+              <button onClick={() => onDeleteNote(note.id)}>削除</button>
             </div>
             <p>{note.content}</p>
             <small>最後の修正日:{new Date(note.modDate).toLocaleDateString('ja-JP',{
