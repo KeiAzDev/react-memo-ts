@@ -13,6 +13,7 @@ export interface Note {
 
 function App() {
   const [notes, setNotes] = useState<Note[]>([]);
+  const [activeNote, setActiveNote] = useState<string>('');
 
   const onAddNote = () => {
     console.log('note added');
@@ -33,7 +34,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Sidebar onAddNote={onAddNote} notes={notes} onDeleteNote={onDeleteNote} />
+      <Sidebar onAddNote={onAddNote} notes={notes} onDeleteNote={onDeleteNote} activeNote={activeNote} setActiveNote={setActiveNote} />
       <Main />
     </div>
   )

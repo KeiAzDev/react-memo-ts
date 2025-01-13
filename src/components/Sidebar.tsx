@@ -5,9 +5,11 @@ interface SidebarProps {
   onAddNote: () => void;
   notes: Note[];
   onDeleteNote: (id: string) => void;
+  activeNote: string;
+  setActiveNote: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ onAddNote, notes, onDeleteNote }) => {
+const Sidebar: React.FC<SidebarProps> = ({ onAddNote, notes, onDeleteNote, activeNote, setActiveNote }) => {
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -16,7 +18,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onAddNote, notes, onDeleteNote }) => 
       </div>
       <div className="app-sidebar-notes">
         {notes.map((note) => (
-          <div className="app-sidebar-note" key={note.id}>
+          <div className={`app-sidebar-note ${note.id === activeNote && 'active'}`} key={note.id} onClick={() => setActiveNote(note.id)}>
             <div className="sidebar-note-title">
               <strong>{note.title}</strong>
               <button onClick={() => onDeleteNote(note.id)}>削除</button>
