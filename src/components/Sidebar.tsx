@@ -10,6 +10,9 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ onAddNote, notes, onDeleteNote, activeNote, setActiveNote }) => {
+
+  const sortedNotes = notes.sort((a, b) => b.modDate - a.modDate);
+
   return (
     <div className="app-sidebar">
       <div className="app-sidebar-header">
@@ -17,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onAddNote, notes, onDeleteNote, activ
         <button onClick={onAddNote}>追加</button>
       </div>
       <div className="app-sidebar-notes">
-        {notes.map((note) => (
+        {sortedNotes.map((note) => (
           <div className={`app-sidebar-note ${note.id === activeNote && 'active'}`} key={note.id} onClick={() => setActiveNote(note.id)}>
             <div className="sidebar-note-title">
               <strong>{note.title}</strong>
