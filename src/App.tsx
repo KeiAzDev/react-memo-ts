@@ -34,6 +34,10 @@ function App() {
 
   const getActiveNote = () => {
     return notes.find((note) => note.id === activeNote);
+  };
+
+  const onUpdateNote = () => {
+
   }
 
   return (
