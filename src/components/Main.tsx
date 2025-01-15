@@ -3,11 +3,18 @@ import { Note } from '../App'
 
 interface MainProps {
   activeNote: Note | undefined;
+  onUpdateNote: (updatedNote: Note) => void;
 }
 
-const Main: React.FC<MainProps> = ({activeNote}) => {
-  const onEditNote = () => {
-    
+const Main: React.FC<MainProps> = ({activeNote, onUpdateNote}) => {
+  const onEditNote = (key: string, value: string) => {
+    if (!activeNote) return;
+    onUpdateNote({
+      ...activeNote,
+      id: activeNote.id,
+      [key]: value,
+      modDate: Date.now(),
+    });
   }
   if(!activeNote) return <div className='no-active-note'>ノートを選択してください</div>
   return (

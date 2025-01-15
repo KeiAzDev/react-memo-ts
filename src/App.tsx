@@ -36,14 +36,29 @@ function App() {
     return notes.find((note) => note.id === activeNote);
   };
 
-  const onUpdateNote = () => {
-
+  interface UpdatedNote {
+    id: string;
+    title: string;
+    content: string;
+    modDate: number;
   }
+
+  const onUpdateNote = (updatedNote: UpdatedNote) => {
+    const updatedNotesArray = notes.map((note) => {
+      if (note.id === updatedNote.id) {
+        return updatedNote;
+      } else {
+        return note;
+      }
+    });
+
+    setNotes(updatedNotesArray);
+  };
 
   return (
     <div className='App'>
       <Sidebar onAddNote={onAddNote} notes={notes} onDeleteNote={onDeleteNote} activeNote={activeNote} setActiveNote={setActiveNote} />
-      <Main activeNote={getActiveNote()} />
+      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
     </div>
   )
 }
