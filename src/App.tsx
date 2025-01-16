@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Main from './components/Main'
 import Sidebar from './components/Sidebar'
@@ -12,8 +12,19 @@ export interface Note {
 }
 
 function App() {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<Note[]>(() => {
+    const savedNotes = localStorage.getItem('notes');
+    return savedNotes ? JSON.parse(savedNotes) : [];
+  });
   const [activeNote, setActiveNote] = useState<string>('');
+
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes));
+  }, [notes]);
+
+  useEffect(() => {
+    setActiveNote(notes[0]?.id);
+  }, []);
 
   const onAddNote = () => {
     console.log('note added');
